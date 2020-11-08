@@ -21,7 +21,7 @@ The above are important as the client will ask the server for a subdomain under 
 # pick a place where the files will live
 git clone git://github.com/humayunj/server.git
 cd localtunnel-server
-npm install
+yarn install
 
 # server set to run on port 1234
 node -r esm bin/server --port 1234
