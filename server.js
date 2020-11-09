@@ -16,6 +16,8 @@ export default function(opt) {
     const validHosts = (opt.domain) ? [opt.domain] : undefined;
     const myTldjs = tldjs.fromUserSettings({ validHosts });
     const landingPage = opt.landing || 'https://www.lumikit.com.br';
+    const notFoundRedirect = 'https://www.lumikit.com.br/404';
+    
 
     function GetClientIdFromHostname(hostname) {
         return myTldjs.getSubdomain(hostname);
@@ -144,8 +146,10 @@ export default function(opt) {
         
         const client = manager.getClient(clientId);
         if (!client) {
-            res.statusCode = 404;
-            res.end('404');
+            res.writeHead(301,
+              {Location: `${notFoundRedirect}?id=${clientId}`}
+            );
+            res.end();
             return;
         }
 
