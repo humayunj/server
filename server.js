@@ -135,7 +135,10 @@ export default function(opt) {
         }
 
         if (clientId === 'www') {
-            res.redirect(landingPage);
+            res.writeHead(301,
+              {Location: landingPage}
+            );
+            res.end();
             return;
         }
         
