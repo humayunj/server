@@ -15,7 +15,7 @@ export default function(opt) {
 
     const validHosts = (opt.domain) ? [opt.domain] : undefined;
     const myTldjs = tldjs.fromUserSettings({ validHosts });
-    const landingPage = opt.landing || 'https://localtunnel.github.io/www/';
+    const landingPage = opt.landing || 'https://www.lumikit.com.br';
 
     function GetClientIdFromHostname(hostname) {
         return myTldjs.getSubdomain(hostname);
@@ -127,11 +127,18 @@ export default function(opt) {
         }
 
         const clientId = GetClientIdFromHostname(hostname);
+        
+        
         if (!clientId) {
             appCallback(req, res);
             return;
         }
 
+        if (clientId === 'www') {
+            res.redirect(landingPage);
+            return;
+        }
+        
         const client = manager.getClient(clientId);
         if (!client) {
             res.statusCode = 404;
